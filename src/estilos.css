@@ -1,7 +1,7 @@
 :root{
-  --bg:#f3f5f9;--ink:#0b1f44;--campo:#e3e9f4;--accent:#f7dd16;--navy:#0b1f44;
+  --bg:var(--fondo);--ink:var(--tinta);--accent:var(--acento);--navy:var(--oscuro);
   --m:clamp(16px,4vw,56px);--gap:clamp(72px,11vw,200px);
-  --f-text:'Barlow',system-ui,sans-serif;--f-disp:'Barlow Condensed','Arial Narrow',sans-serif;
+  --f-text:var(--sans);--f-disp:var(--serif);
   --s-small:.9375rem;--s-body:clamp(1.0625rem,1rem + .25vw,1.1875rem);
   --s-lead:clamp(1.25rem,1.1rem + .7vw,1.625rem);
   --s-head:clamp(2.75rem,1.2rem + 6vw,6rem);
@@ -96,20 +96,12 @@ p{margin:0}
 @media(hover:hover){.bloque:hover{background:var(--accent)}}
 @media(max-width:860px){.dos{grid-template-columns:1fr}.bloque{min-height:260px}}
 
-/* impresos sobre el titular */
-.impresos{background:var(--navy);color:#fff;padding:var(--gap) var(--m);position:relative;overflow:hidden;min-height:90svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.impresos h2{font-size:clamp(4rem,17vw,15rem);line-height:.86;max-width:7em;position:relative;z-index:0}
-.prints{position:absolute;inset:0;pointer-events:none}
-.print{position:absolute;width:clamp(150px,22vw,320px);aspect-ratio:3/4;object-fit:cover;border:8px solid #fff;z-index:1}
-.print.a{left:16%;top:18%;transform:rotate(-8deg)}
-.print.b{right:16%;top:34%;transform:rotate(6deg)}
-.impresos p{position:absolute;left:var(--m);bottom:var(--m);max-width:22em;text-align:left;font-size:var(--s-body);z-index:2}
-@media(max-width:860px){
-  .impresos{min-height:80svh}
-  .print.a{left:4%;top:12%}.print.b{right:4%;top:40%}
-  .impresos h2{font-size:clamp(3.5rem,24vw,8rem)}
-}
-
+/* galería 3D (React Bits CircularCarousel) */
+.galeria3d{background:var(--navy);color:#fff;padding:var(--gap) 0 calc(var(--gap)*.6);overflow:hidden}
+.galeria3d h2{font-size:clamp(3rem,1rem + 8vw,8rem);max-width:9em;padding:0 var(--m)}
+.carrusel3d{height:clamp(380px,60vw,600px);margin-top:clamp(24px,4vw,56px)}
+.rejilla-fotos{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));padding:0 var(--m)}
+.rejilla-fotos img{width:100%;aspect-ratio:4/5;object-fit:cover}
 /* páginas interiores */
 .cabecera{padding:clamp(40px,7vw,110px) var(--m) clamp(56px,8vw,120px);display:flex;flex-direction:column;gap:24px}
 .cabecera h1{max-width:9em}
@@ -174,9 +166,7 @@ p{margin:0}
 .doctor-cuerpo{display:grid;grid-template-columns:repeat(3,1fr);gap:28px var(--m);align-self:start}
 .doctor-cuerpo .doctor-nota,.doctor-cuerpo>div:last-child{grid-column:1/-1}
 .lista-plan{columns:3}
-.impresos h2{font-size:clamp(3.25rem,11vw,10rem);max-width:9em}
 @media(max-width:860px){
   .doctor-cuerpo{grid-template-columns:1fr}
   .lista-plan{columns:1}
-  .impresos h2{font-size:clamp(3rem,15vw,6rem)}
-}
+  }

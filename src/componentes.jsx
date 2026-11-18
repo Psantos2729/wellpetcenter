@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { negocio, fotos } from './contenido.js'
+import { waUrl } from './lib/wa.js'
+import { ruta as pub } from './lib/ruta.js'
 
 export const rutas = [
   ['#/servicios', 'Servicios'],
@@ -8,8 +10,9 @@ export const rutas = [
   ['#/contacto', 'Contacto'],
 ]
 
-export const tel = `${negocio.telefono.slice(0, 4)}-${negocio.telefono.slice(4)}`
-export const wa = (m = negocio.mensajeWA) => `https://wa.me/${negocio.whatsapp}?text=${encodeURIComponent(m)}`
+export const tel = negocio.telefono
+export const telHref = `tel:+502${negocio.telefono.replace(/\D/g, '')}`
+export const wa = (m) => waUrl(m)
 
 export function BotonWA({ children = 'Escríbenos por WhatsApp', mensaje, amarillo, oscuro }) {
   return (
@@ -22,7 +25,7 @@ export function BotonWA({ children = 'Escríbenos por WhatsApp', mensaje, amaril
 export function Foto({ id, className = '', eager }) {
   const f = fotos[id]
   return (
-    <img className={className} src={`./${f.src}`} alt={f.alt} width={f.w} height={f.h}
+    <img className={className} src={pub(f.src)} alt={f.alt} width={f.w} height={f.h}
       style={{ objectPosition: f.pos }} loading={eager ? 'eager' : 'lazy'} />
   )
 }
@@ -59,7 +62,7 @@ export function Nav({ ruta }) {
   return (
     <header className="nav">
       <a className="marca" href="#/" aria-label="Wellpet Center, inicio">
-        <img src="./logo.png" alt="" width="44" height="44" />
+        <img src={pub(negocio.logo)} alt="" width="44" height="44" />
         <span>Wellpet Center</span>
       </a>
       <button className="menu-btn" aria-expanded={abierto} aria-controls="menu" onClick={() => setAbierto(!abierto)}>
@@ -79,13 +82,13 @@ export function Pie() {
   return (
     <footer className="pie">
       <div className="pie-notas">
-        <p>{negocio.direccion}</p>
+        <p>{negocio.direccion}, {negocio.ciudad}</p>
         <p>Lunes a viernes 8:00 - 17:00. Sábados 8:00 - 12:00. Domingos solo emergencias.</p>
         <p><a href={negocio.instagram} target="_blank" rel="noopener noreferrer">@wellpetcentergt</a></p>
         <a href="#/" onClick={() => window.scrollTo(0, 0)}>Volver arriba</a>
       </div>
-      <a className="pie-tel r" href={`tel:+502${negocio.telefono}`}>{tel}</a>
-      <p className="pie-ayuda">Llámanos o escribe por WhatsApp al 3928-9502. Atendemos emergencias las 24 horas.</p>
+      <a className="pie-tel r" href={telHref}>{tel}</a>
+      <p className="pie-ayuda">Llámanos o escribe por WhatsApp al {negocio.whatsappTexto}. Atendemos emergencias las 24 horas.</p>
     </footer>
   )
 }

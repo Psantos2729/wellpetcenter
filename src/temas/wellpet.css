@@ -1,0 +1,8 @@
+/* Tema Wellpet: azul marino y amarillo de la marca. Tokens de la base (TEMAS.md) + los usados por estilos.css */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;500;600&display=swap');
+:root{
+  --fondo:#F3F5F9;--papel:#FFFFFF;--tinta:#0B1F44;--nota:#3C4A68;
+  --accion:#0B1F44;--accion-tinta:#FFFFFF;--acento:#F7DD16;--sobre-acento:#0B1F44;
+  --oscuro:#0B1F44;--sobre-oscuro:#FFFFFF;--campo:#E3E9F4;
+  --serif:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--radio:14px;
+}

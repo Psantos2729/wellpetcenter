@@ -1,5 +1,6 @@
-import { BotonWA, Estado, Foto } from '../componentes.jsx'
+import { BotonWA, Estado, Foto, telHref } from '../componentes.jsx'
 import { negocio } from '../contenido.js'
+import Galeria3D from '../componentes/Galeria3D.jsx'
 
 export default function Inicio() {
   return (
@@ -40,7 +41,7 @@ export default function Inicio() {
           <p className="lead">Atendemos las 24 horas, todos los días. Escríbenos o llámanos y te decimos cómo llegar.</p>
           <div className="acciones">
             <BotonWA oscuro mensaje={negocio.mensajeEmergencia}>Escribir por WhatsApp</BotonWA>
-            <a className="boton" href={`tel:+502${negocio.telefono}`}>Llamar 2355-2600</a>
+            <a className="boton" href={telHref}>Llamar {negocio.telefono}</a>
           </div>
         </div>
       </section>
@@ -58,14 +59,7 @@ export default function Inicio() {
         </a>
       </section>
 
-      <section className="impresos">
-        <h2 className="r">Cuidamos a toda la familia</h2>
-        <div className="prints" aria-hidden="false">
-          <Foto id="padre" className="print a" />
-          <Foto id="senior" className="print b" />
-        </div>
-        <p className="r">Desde el primer cachorro hasta el compañero de ocho años que todavía tiene mucho por vivir.</p>
-      </section>
+      <Galeria3D />
     </>
   )
 }
