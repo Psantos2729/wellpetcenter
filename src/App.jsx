@@ -1,66 +1,45 @@
-import { negocio, servicios, fotos } from './contenido.js'
+import { useEffect, useState } from 'react'
+import { Nav, Pie } from './componentes.jsx'
+import Inicio from './paginas/Inicio.jsx'
+import Servicios from './paginas/Servicios.jsx'
+import Equipo from './paginas/Equipo.jsx'
+import Planes from './paginas/Planes.jsx'
+import Contacto from './paginas/Contacto.jsx'
 
-function BotonWA({ children = 'Escríbenos por WhatsApp', mensaje = negocio.mensajeWA, urgente }) {
-  const href = `https://wa.me/${negocio.whatsapp}?text=${encodeURIComponent(mensaje)}`
-  return (
-    <a className={urgente ? 'boton urgente' : 'boton'} href={href} target="_blank" rel="noopener noreferrer">
-      {children}
-    </a>
-  )
+const paginas = {
+  '/': [Inicio, 'Wellpet Center GT | Hospital veterinario en zona 10, emergencias 24/7'],
+  '/servicios': [Servicios, 'Servicios | Wellpet Center GT'],
+  '/equipo': [Equipo, 'Equipo médico | Wellpet Center GT'],
+  '/planes': [Planes, 'Planes de salud | Wellpet Center GT'],
+  '/contacto': [Contacto, 'Contacto y horarios | Wellpet Center GT'],
+}
+
+const rutaActual = () => {
+  const r = window.location.hash.replace(/^#/, '') || '/'
+  return paginas[r] ? r : '/'
 }
 
 export default function App() {
+  const [ruta, setRuta] = useState(rutaActual)
+  useEffect(() => {
+    const f = () => { setRuta(rutaActual()); window.scrollTo(0, 0) }
+    window.addEventListener('hashchange', f)
+    return () => window.removeEventListener('hashchange', f)
+  }, [])
+  const [Pagina, titulo] = paginas[ruta]
+  useEffect(() => {
+    document.title = titulo
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) }
+    }), { threshold: 0.12 })
+    const t = setTimeout(() => document.querySelectorAll('.r:not(.in)').forEach(el => io.observe(el)), 30)
+    return () => { clearTimeout(t); io.disconnect() }
+  }, [ruta, titulo])
   return (
     <>
-      <header className="hero">
-        <img className="logo" src="./logo.png" alt="Logo de Wellpet Center" width="72" height="72" />
-        <p className="kicker">{negocio.tipo} · {negocio.zona}</p>
-        <h1>{negocio.nombre}</h1>
-        <p className="lead">{negocio.eslogan}</p>
-        <div className="acciones">
-          <BotonWA urgente mensaje={negocio.mensajeEmergencia}>{negocio.emergencias}</BotonWA>
-          <BotonWA>Agendar consulta</BotonWA>
-        </div>
-      </header>
-      <main>
-        <section id="servicios">
-          <h2>Servicios</h2>
-          <div className="grid">
-            {servicios.map(s => (
-              <article key={s.titulo}>
-                <h3>{s.titulo}</h3>
-                <ul>{s.items.map(i => <li key={i}>{i}</li>)}</ul>
-              </article>
-            ))}
-          </div>
-        </section>
-        {fotos.length > 0 && (
-          <section id="galeria">
-            <h2>Galería</h2>
-            <div className="grid fotos">
-              {fotos.map(f => <img key={f.archivo} src={`./fotos/${f.archivo}`} alt={f.alt} loading="lazy" />)}
-            </div>
-          </section>
-        )}
-        <section id="contacto" className="contacto">
-          <div>
-            <h2>Horarios</h2>
-            <dl>
-              {negocio.horario.map(([d, h]) => (
-                <div key={d}><dt>{d}</dt><dd>{h}</dd></div>
-              ))}
-            </dl>
-            <p><strong>{negocio.emergencias}</strong></p>
-          </div>
-          <div>
-            <h2>Visítanos</h2>
-            <p>{negocio.direccion}</p>
-            <p><a href={`tel:+502${negocio.telefono}`}>Tel. {negocio.telefono.replace(/(\d{4})(\d{4})/, '$1-$2')}</a></p>
-            <p><a href={negocio.mapa} target="_blank" rel="noopener noreferrer">Cómo llegar (Waze)</a></p>
-          </div>
-        </section>
-      </main>
-      <footer><a href={negocio.instagram} target="_blank" rel="noopener noreferrer">@wellpetcentergt</a></footer>
+      <Nav ruta={ruta} />
+      <main key={ruta}><Pagina /></main>
+      <Pie />
     </>
   )
 }
