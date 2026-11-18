@@ -1,4 +1,7 @@
 import { BotonWA, Foto } from '../componentes.jsx'
+import ScrollExpand from '../reactbits/ScrollExpand/ScrollExpand.jsx'
+import { ruta } from '../lib/ruta.js'
+import { fotos } from '../contenido.js'
 import { servicios } from '../contenido.js'
 
 const fotoPor = ['sintoma', 'sangre', 'senior', 'dolor']
@@ -6,12 +9,24 @@ const fotoPor = ['sintoma', 'sangre', 'senior', 'dolor']
 export default function Servicios() {
   return (
     <>
-      <section className="cabecera">
-        <h1 className="r">Todo lo que tu mascota necesita</h1>
-        <p className="lead r" style={{ '--d': 1 }}>
-          Consulta, hospital, diagnóstico y bienestar en un solo lugar, con emergencias las 24 horas.
-        </p>
-      </section>
+      <div className="expande">
+        <ScrollExpand
+          useWindowScroll
+          src={ruta(fotos.dolor.src)}
+          alt={fotos.dolor.alt}
+          title={<h1>Todo lo que tu mascota necesita</h1>}
+          scrollHint="Desliza para ver los servicios"
+          startWidth={38}
+          startHeight={52}
+          startRadius={14}
+          overlayScrim={0.35}
+          scrollDistance={1}
+          holdDistance={0.2}
+        >
+          <p className="lead">Consulta, hospital, diagnóstico y bienestar en un solo lugar, con emergencias las 24 horas.</p>
+          <div className="acciones"><BotonWA amarillo>Escríbenos por WhatsApp</BotonWA></div>
+        </ScrollExpand>
+      </div>
       {servicios.map((s, i) => (
         <section key={s.titulo} className={`grupo ${i % 2 ? 'invierte' : ''}`}>
           <div className="grupo-texto">
