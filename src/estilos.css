@@ -170,3 +170,7 @@ p{margin:0}
   .doctor-cuerpo{grid-template-columns:1fr}
   .lista-plan{columns:1}
   }
+.area{padding:clamp(20px,2.4vw,32px)}
+.area h3{margin-bottom:8px}
+.plan .area .lista-plan{columns:2}
+@media(max-width:860px){.plan .area .lista-plan{columns:1}}

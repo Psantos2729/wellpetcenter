@@ -1,4 +1,5 @@
 import { BotonWA } from '../componentes.jsx'
+import SpotlightCard from '../reactbits/SpotlightCard/SpotlightCard.jsx'
 import { equipo } from '../contenido.js'
 
 export default function Equipo() {
@@ -16,8 +17,11 @@ export default function Equipo() {
           <div className="doctor-cuerpo">
             {d.areas.map(([t, x], k) => (
               <div className="r" style={{ '--d': k }} key={t}>
-                <h3>{t}</h3>
-                <p>{x}</p>
+                <SpotlightCard className="area" theme={i % 2 ? 'dark' : 'light'} spotlightColor={i % 2 ? '#f7dd16' : '#0b1f44'}
+                  style={{ '--spotlight-card-surface': i % 2 ? '#14306b' : '#ffffff', '--spotlight-card-border': 'transparent', '--spotlight-card-shadow': 'none', borderRadius: 14 }}>
+                  <h3>{t}</h3>
+                  <p>{x}</p>
+                </SpotlightCard>
               </div>
             ))}
             <p className="doctor-nota r">{d.texto}</p>
