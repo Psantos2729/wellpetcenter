@@ -18,7 +18,7 @@ export const negocio = {
   instagram: 'https://www.instagram.com/wellpetcentergt/',
   mensajeWA: 'Hola Wellpet Center, quiero información.',
   mensajeEmergencia: 'Hola Wellpet Center, tengo una emergencia con mi mascota.',
-  url: '',
+  url: 'https://psantos2729.github.io/wellpetcenter/',
 }
 export const servicios = [
   { titulo: 'Consulta y prevención', items: ['Consulta médica', 'Consulta cardiológica', 'Consulta neurológica', 'Farmacia', 'Vacunas', 'Desparasitaciones'] },
